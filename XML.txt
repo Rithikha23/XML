@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+  
+<head>
+    <script>
+        function loadXMLDoc() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+  
+                // Request finished and response 
+                // is ready and Status is "OK"
+                if (this.readyState == 4 && this.status == 200) {
+                    Details(this);
+                }
+            };
+  
+            // employee.xml is the external xml file
+            xmlhttp.open("GET", "newXML.xml", true);
+            xmlhttp.send();
+        }
+  
+        function Details(xml) {
+            var i;
+            var xmlDoc = xml.responseXML;
+            var table =
+                `<tr><th>p_name</th>
+                    <th>p_rate</th>
+                    <th>p_warranty</th></tr>`;
+            var x = xmlDoc.getElementsByTagName("product");
+  
+            // Start to fetch the data by using TagName 
+            for (i = 0; i < x.length; i++) {
+                table += "<tr><td>" +
+                    x[i].getElementsByTagName("p_name")[0]
+                    .childNodes[0].nodeValue + "</td><td>" +
+                    x[i].getElementsByTagName("p_rate")[0]
+                    .childNodes[0].nodeValue + "</td><td>" +
+                    x[i].getElementsByTagName("p_warranty")[0]
+                    .childNodes[0].nodeValue + "</td><td>" ;
+            }
+  
+            // Print the xml data in table form
+            document.getElementById("id").innerHTML = table;
+        }
+    </script>
+</head>
+  
+<body>
+    <center>
+        <button style="background-color:#cc00cc" type="button" class="button" onclick="loadXMLDoc()">
+            Get details
+        </button>
+    </center>
+      
+    <br><br>
+    <table id="id"></table>
+</body>
+  
+</html>
+
+
+XML document:
+<?xml version="1.0" encoding="utf-8"?>
+<product>
+    <p>
+        <pid>111</pid>
+        <p_name>Computer</p_name>
+        <p_rate>150000</p_rate>
+        <p_warranty>4 years</p_warranty>
+    </p>
+    
+    <p>
+        <pid>222</pid>
+        <p_name>Speaker</p_name>
+        <p_rate>15000</p_rate>
+        <p_warranty>3 years</p_warranty>
+    </p>
+    
+    <p>
+        <pid>333</pid>
+        <p_name>Headset</p_name>
+        <p_rate>1500</p_rate>
+        <p_warranty>2 years</p_warranty>
+    </p>
+    
+    <p>
+        <pid>444</pid>
+        <p_name>Mobile</p_name>
+        <p_rate>32499</p_rate>
+        <p_warranty>5 years</p_warranty>
+    </p>
+    
+</product>
